@@ -9,6 +9,11 @@
 - **描述**：幫助使用者將含有 EXIF GPS 座標資訊的相片，依照地理位置及日期進行自動分類與重新命名。
 - **詳細說明**：請參考 [`photo-sorter/README.md`](photo-sorter/README.md) 了解完整功能介紹。
 
+### 2. [Docusaurus (網站管理工具)](docusaurus/SKILL.md)
+- **目錄**：`docusaurus/`
+- **描述**：協助管理 Docusaurus 說明文件網站，支援建立新專案、啟動與停止開發伺服器，以及進行常見的編譯與部署操作。
+- **詳細說明**：請參考 [`docusaurus/SKILL.md`](docusaurus/SKILL.md) 了解完整功能介紹與腳本使用方式。
+
 ## 如何在各 CLI 或 IDE 中使用
 
 這些技能（Skills）的設計理念是透過標準化的 `SKILL.md` 檔案，讓不同環境下的 AI Agent 都能閱讀並執行裡面定義好的步驟。
