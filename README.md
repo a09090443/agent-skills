@@ -14,6 +14,11 @@
 - **描述**：協助管理 Docusaurus 說明文件網站，支援建立新專案、啟動與停止開發伺服器，以及進行常見的編譯與部署操作。
 - **詳細說明**：請參考 [`docusaurus/SKILL.md`](docusaurus/SKILL.md) 了解完整功能介紹與腳本使用方式。
 
+### 3. [Engineering a Harness (專案 Agent Harness 建構)](engineering-a-harness/SKILL.md)
+- **目錄**：`engineering-a-harness/`
+- **描述**：跨語言／技術棧的方法論，依 Harness Engineering 六原則把任一 repo 改造成 AI agent 可靠協作的環境——建立 `AGENTS.md` 導覽地圖、機械化強制慣例、漂移掃描。流程通用、規則逐專案歸納。
+- **詳細說明**：請參考 [`engineering-a-harness/SKILL.md`](engineering-a-harness/SKILL.md)。各語言落地範例（同一流程、不同工具）：[Java/ArchUnit](engineering-a-harness/java-archunit-example.md)、[TypeScript/dependency-cruiser](engineering-a-harness/ts-dependency-cruiser-example.md)、[Python/import-linter](engineering-a-harness/python-import-linter-example.md)。
+
 ## 如何在各 CLI 或 IDE 中使用
 
 這些技能（Skills）的設計理念是透過標準化的 `SKILL.md` 檔案，讓不同環境下的 AI Agent 都能閱讀並執行裡面定義好的步驟。
