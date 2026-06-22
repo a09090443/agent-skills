@@ -37,5 +37,11 @@
 2. **專案使用 (Project) (推薦)**：Cursor 官方推薦將專案規則放置於 `.cursor/rules/` 並使用 `.mdc` 格式。若維持使用本專案的 markdown 檔，請將其放入 Workspace 後，在 Chat 或是 Prompt 框中利用 `@` 提及對應的檔案（例如：輸入 `@<技能資料夾>/SKILL.md`）。
 3. 給予指令：「請依照這個技能說明的步驟，幫我執行 <任務需求>」。IDE 的 AI 就會遵循指示，為你執行定義好的動作。
 
+## 版本控管規範
+
+- 專案根目錄的 [`.gitignore`](.gitignore) 用來排除不需納入版控的檔案。
+- 目前已忽略 JetBrains 系列 IDE（IntelliJ IDEA、PyCharm 等）自動產生的 `.idea/` 設定目錄，避免個人化的 IDE 設定污染版本庫。
+- 若日後加入其他工具或語言，請於 `.gitignore` 補上對應的忽略規則（例如 `node_modules/`、`__pycache__/`、`*.log` 等）。
+
 ---
 *(若有新增其他技能，請在此補充)*
