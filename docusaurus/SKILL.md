@@ -199,7 +199,8 @@ The main configuration file is `docusaurus.config.js` in the project root. Key s
 
 **Documentation pages**: Add Markdown files to `docs/`
 - Supports MDX (Markdown + React components)
-- Frontmatter for metadata
+- Frontmatter for metadata (always use standard fields like `id` and `title` to aid meta-data parsing)
+- Link Formatting: Use standard relative Markdown links (e.g. `[My Page](./my-page.md)`) instead of Obsidian-style double bracket links (`[[My Page]]`). This ensures Docusaurus parses links correctly and prevents broken paths during build.
 - Automatic sidebar generation via `sidebars.js`
 
 **Blog posts**: Add Markdown files to `blog/`
@@ -250,12 +251,40 @@ For large-scale, public production websites, configure official Algolia DocSearc
 
 ---
 
-## AI-Friendly Optimization (llms.txt)
+## AI Search & LLM Optimization
 
-To make sitemaps, summaries, and full text content easily discoverable and queries-ready for AI agents and LLMs (e.g. Claude Code, Cursor, Antigravity), use the `docusaurus-plugin-llms` plugin listed in the [Docusaurus community resources](https://docusaurus.io/community/resources).
+To make your documentation site highly suitable for AI search engines (e.g. Perplexity, ChatGPT search) and LLM context extraction (e.g. Cursor, Claude Code, Antigravity), implement the following configurations:
 
-### docusaurus-plugin-llms
-This plugin generates both `/llms.txt` (index) and `/llms-full.txt` (full text representation of the site).
+### 1. Configure `robots.txt` for AI Crawlers
+AI crawlers check `robots.txt` as a legal gatekeeper. To prevent them from ignoring your site (especially on default `.github.io` domains which trigger strict crawler rate limiting), explicitly allow AI bots and point them to your `llms.txt` and `sitemap.xml`.
+
+Create a file named `robots.txt` in the `static/` directory of your Docusaurus site:
+
+```plaintext
+User-agent: *
+Allow: /
+
+# Explicitly allow major AI agents
+User-agent: GPTBot
+Allow: /
+User-agent: ChatGPT-User
+Allow: /
+User-agent: ClaudeBot
+Allow: /
+User-agent: PerplexityBot
+Allow: /
+User-agent: Google-Extended
+Allow: /
+
+# Direct AI crawlers to the sitemaps & LLM indexes
+Sitemap: https://<your-domain>/llms.txt
+Sitemap: https://<your-domain>/sitemap.xml
+```
+
+### 2. Support the `llms.txt` Protocol
+The `llms.txt` file acts as a noise-free, token-saving entry point for LLMs. Instead of parsing compiled HTML, AI agents can read this file directly to grasp your site structure.
+
+Use the `docusaurus-plugin-llms` plugin to dynamically generate `llms.txt` and `llms-full.txt` by scanning the `/docs` folder:
 
 **Installation:**
 ```bash
@@ -280,10 +309,45 @@ module.exports = {
 };
 ```
 
-### Accessing Generated Files
-After running a production build (`npm run build`), the generated files will be written to the output directory (`build/`). When deployed, they will be accessible at:
-- `http://<your-domain>/llms.txt` (Sitemap and summary metadata)
-- `http://<your-domain>/llms-full.txt` (All documentation flattened into a single clean markdown file for LLM ingestion)
+**Accessing Generated Files:**
+After running a production build (`npm run build`), the files will be written to the output directory (`build/`). When deployed, they will be accessible at:
+- `http://<your-domain>/llms.txt` (Index outline and metadata sitemap)
+- `http://<your-domain>/llms-full.txt` (All documentation flattened into a single clean Markdown file for LLM ingestion)
+
+### 3. Exposing Raw Markdown
+To help LLMs ingest clean content without HTML tag noise, use `expose-markdown-docusaurus-plugin` to expose raw `.md` files at clean URLs. This results in zero formatting noise and reduced token usage.
+
+**Installation:**
+```bash
+npm install --save-dev expose-markdown-docusaurus-plugin
+```
+
+**Configuration (`docusaurus.config.js` or `docusaurus.config.ts`):**
+```javascript
+module.exports = {
+  // ...
+  plugins: ['expose-markdown-docusaurus-plugin'],
+};
+```
+
+### 4. Copy-to-Clipboard Markdown Button
+Install `docusaurus-plugin-copy-page-button` to add a button to the Docusaurus page UI, letting users copy the current page as clean Markdown for quick copying and pasting to AI chat boxes.
+
+**Installation:**
+```bash
+npm install --save-dev docusaurus-plugin-copy-page-button
+```
+
+**Configuration (`docusaurus.config.js` or `docusaurus.config.ts`):**
+```javascript
+module.exports = {
+  // ...
+  plugins: ['docusaurus-plugin-copy-page-button'],
+};
+```
+
+### 5. Custom Domain Deployment
+AI crawlers tend to de-prioritize or rate-limit default Github Pages domains (`*.github.io`) to filter out duplicate/test repositories. Always bind a **custom domain** (e.g. `.com` or `.dev`) to improve crawling speed, reliability, and search indexing stability.
 
 ---
 
@@ -320,7 +384,7 @@ npm run build
 - **Versioning**: Built-in support for versioned documentation
 - **i18n**: Built-in internationalization support
 - **Search**: Fully integrated via local search or Algolia DocSearch (see `## Search Integration`)
-- **AI Readiness**: Expose `llms.txt` to help AI agents digest the documentation (see `## AI-Friendly Optimization (llms.txt)`)
+- **AI Readiness**: Expose `llms.txt` and configure robots.txt to help AI agents digest the documentation (see `## AI Search & LLM Optimization`)
 
 ## Resources
 
