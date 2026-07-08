@@ -19,6 +19,11 @@
 - **描述**：跨語言／技術棧的方法論，依 Harness Engineering 六原則把任一 repo 改造成 AI agent 可靠協作的環境——建立 `AGENTS.md` 導覽地圖、機械化強制慣例、漂移掃描。流程通用、規則逐專案歸納。
 - **詳細說明**：請參考 [`engineering-a-harness/SKILL.md`](engineering-a-harness/SKILL.md)。各語言落地範例（同一流程、不同工具）：[Java/ArchUnit](engineering-a-harness/java-archunit-example.md)、[TypeScript/dependency-cruiser](engineering-a-harness/ts-dependency-cruiser-example.md)、[Python/import-linter](engineering-a-harness/python-import-linter-example.md)。
 
+### 4. [Zipe Starters (Spring Boot 專案產生器)](zipe-starters/SKILL.md)
+- **目錄**：`zipe-starters/`
+- **描述**：根據使用者的功能需求，從 [zipe-spring-boot-starters](https://a09090443.github.io/zipe-spring-boot-starters/) 自動選取合適的 Starter 模組（base／db／job／logon／iam／web-service／web），產生可立即運行的 Spring Boot 專案壓縮包，內含 `pom.xml`、`application.yml`、設定檔與範例程式碼。涵蓋郵件、加解密、多資料來源、Quartz 排程、登入認證、SOAP WebService、Thymeleaf／JSP 視圖等情境，並主動處理已知的設定陷阱。
+- **詳細說明**：請參考 [`zipe-starters/SKILL.md`](zipe-starters/SKILL.md) 了解完整流程與檔案產生規格；各模組的詳細設定與注意事項見 [`zipe-starters/references/starters-detail.md`](zipe-starters/references/starters-detail.md)。
+
 ## 如何在各 CLI 或 IDE 中使用
 
 這些技能（Skills）的設計理念是透過標準化的 `SKILL.md` 檔案，讓不同環境下的 AI Agent 都能閱讀並執行裡面定義好的步驟。

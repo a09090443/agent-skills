@@ -214,6 +214,79 @@ The main configuration file is `docusaurus.config.js` in the project root. Key s
 - Images, PDFs, fonts, etc.
 - Accessible at `/filename` in production
 
+## Search Integration
+
+To enable search functionality on a Docusaurus site, choose one of the following approaches:
+
+### 1. Local Search (Recommended for Offline/Small-to-Medium Sites)
+Use `@easyops-cn/docusaurus-search-local` which is fully client-side and supports multiple languages including Chinese:
+
+**Installation:**
+```bash
+npm install --save-dev @easyops-cn/docusaurus-search-local
+```
+
+**Configuration (`docusaurus.config.js` or `docusaurus.config.ts`):**
+```javascript
+module.exports = {
+  // ...
+  plugins: [
+    [
+      require.resolve("@easyops-cn/docusaurus-search-local"),
+      /** @type {import("@easyops-cn/docusaurus-search-local").PluginOptions} */
+      ({
+        hashed: true,
+        language: ["en", "zh"], // Specify languages (e.g. English & Chinese)
+        highlightSearchTermsOnTargetPage: true,
+        explicitSearchResultPath: true,
+      }),
+    ],
+  ],
+};
+```
+
+### 2. Algolia DocSearch (Official / Production Sites)
+For large-scale, public production websites, configure official Algolia DocSearch. Follow instructions in the [Docusaurus Search Docs](https://docusaurus.io/docs/search).
+
+---
+
+## AI-Friendly Optimization (llms.txt)
+
+To make sitemaps, summaries, and full text content easily discoverable and queries-ready for AI agents and LLMs (e.g. Claude Code, Cursor, Antigravity), use the `docusaurus-plugin-llms` plugin listed in the [Docusaurus community resources](https://docusaurus.io/community/resources).
+
+### docusaurus-plugin-llms
+This plugin generates both `/llms.txt` (index) and `/llms-full.txt` (full text representation of the site).
+
+**Installation:**
+```bash
+npm install --save-dev docusaurus-plugin-llms
+```
+
+**Configuration (`docusaurus.config.js` or `docusaurus.config.ts`):**
+```javascript
+module.exports = {
+  // ...
+  plugins: [
+    [
+      'docusaurus-plugin-llms',
+      {
+        generateLLMsTxt: true,
+        generateLLMsFullTxt: true,
+        title: 'Project Title',
+        description: 'High-level description of your project and documentation structure.',
+      },
+    ],
+  ],
+};
+```
+
+### Accessing Generated Files
+After running a production build (`npm run build`), the generated files will be written to the output directory (`build/`). When deployed, they will be accessible at:
+- `http://<your-domain>/llms.txt` (Sitemap and summary metadata)
+- `http://<your-domain>/llms-full.txt` (All documentation flattened into a single clean markdown file for LLM ingestion)
+
+---
+
 ## Troubleshooting
 
 **Port already in use:**
@@ -246,10 +319,11 @@ npm run build
 - **React components**: Mix React components directly in Markdown files (MDX)
 - **Versioning**: Built-in support for versioned documentation
 - **i18n**: Built-in internationalization support
-- **Search**: Can integrate with Algolia DocSearch or local search
+- **Search**: Fully integrated via local search or Algolia DocSearch (see `## Search Integration`)
+- **AI Readiness**: Expose `llms.txt` to help AI agents digest the documentation (see `## AI-Friendly Optimization (llms.txt)`)
 
 ## Resources
 
 - Official docs: https://docusaurus.io/docs
 - GitHub repo: https://github.com/facebook/docusaurus
-- Community plugins: https://docusaurus.io/community/resources
+- Community plugins & resources: https://docusaurus.io/community/resources
