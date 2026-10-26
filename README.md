@@ -24,6 +24,11 @@
 - **描述**：根據使用者的功能需求，從 [zipe-spring-boot-starters](https://a09090443.github.io/zipe-spring-boot-starters/) 自動選取合適的 Starter 模組（base／db／job／logon／iam／web-service／web），產生可立即運行的 Spring Boot 專案壓縮包，內含 `pom.xml`、`application.yml`、設定檔與範例程式碼。涵蓋郵件、加解密、多資料來源、Quartz 排程、登入認證、SOAP WebService、Thymeleaf／JSP 視圖等情境，並主動處理已知的設定陷阱。
 - **詳細說明**：請參考 [`zipe-starters/SKILL.md`](zipe-starters/SKILL.md) 了解完整流程與檔案產生規格；各模組的詳細設定與注意事項見 [`zipe-starters/references/starters-detail.md`](zipe-starters/references/starters-detail.md)。
 
+### 5. [VirtualBox Control (虛擬機控制)](virtualbox-control/SKILL.md)
+- **目錄**：`virtualbox-control/`
+- **描述**：整合原 `virtualbox-ubuntu` 的 Vagrant Ubuntu 建立流程，以及 VBoxManage 的狀態查詢、電源、快照、資源調整、複製及匯入匯出。新 VM 預設 SSH 金鑰免密碼登入、停用非必要主機共享，並處理主機身分驗證與複製後的 SSH 身分。
+- **詳細說明**：請參考 [`virtualbox-control/SKILL.md`](virtualbox-control/SKILL.md)；建立流程見 [`ubuntu-create.md`](virtualbox-control/references/ubuntu-create.md)，常用指令見 [`operations.md`](virtualbox-control/references/operations.md)，SSH 流程見 [`ssh.md`](virtualbox-control/references/ssh.md)。新 skill 已取代 `virtualbox-ubuntu`，不依賴舊 skill。
+
 ## 如何在各 CLI 或 IDE 中使用
 
 這些技能（Skills）的設計理念是透過標準化的 `SKILL.md` 檔案，讓不同環境下的 AI Agent 都能閱讀並執行裡面定義好的步驟。
